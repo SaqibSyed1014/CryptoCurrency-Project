@@ -29,12 +29,12 @@
       </nav>
     </div>
   </section>
-  <div id="myModal" class="modal">
+  <div id="myModal" class="modal" >
 
     <!-- Modal content -->
     <div class="modal-content">
       <span class="close" @click="closeModal">&times;</span>
-      <Form></Form>
+      <Form @closing="closeModal"></Form>
     </div>
 
   </div>
@@ -47,17 +47,23 @@ name: "menuBar",
   components: {
   Form
   },
+  data(){
+     return{
+
+     }
+  },
   methods: {
-    openModal(event) {
+    openModal() {
       var modal = document.getElementById("myModal");
       modal.style.display = "block";
-      if (event.target == modal) {
-        modal.style.display = "none";
-      }
     },
-    closeModal() {
+    closeModal(val) {
       var modal = document.getElementById("myModal");
       modal.style.display = "none";
+      if (val == 1) {
+        this.$emit('showchart', 2)
+        console.log('111111')
+      }
     }
   }
   }
