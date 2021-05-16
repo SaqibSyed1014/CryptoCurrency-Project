@@ -1,46 +1,47 @@
 <template>
 <div class="main-wrapper">
   <div class="menu">
-    <nav-bar @openmodal="openModal" @loginmodal="openLoginModal"/>
+    <nav-bar @openmodal="openModal" @loginmodal="openLoginModal" @signupmodal="openSignUpModal"/>
   </div>
   <div class="body-wrapper">
     <background-video/>
-    <div class="content-body text-center my-3">
-      <content-headings class="my-5"/>
-      <btn/>
-      <social-icons/>
+    <div class="container">
+      <div class="content-body text-center my-3">
+        <content-headings class="my-5"/>
+        <btn/>
+        <social-icons/>
+      </div>
     </div>
   </div>
   <simple-footer/>
 
   <div id="myModal" class="modal" >
-
-    <!-- Modal content -->
     <div class="modal-content">
-      <span class="close" @click="closeModal2">&times;</span>
+      <div class="close-wrap"><span class="close" @click="closeModal2">&times;</span></div>
       <Form @closing="closeModal"></Form>
     </div>
-
   </div>
 
-  <div id="myModal2" class="modal">
-
-    <!-- Modal content -->
+  <div id="myChartModal2" class="modal">
     <div class="modal-content">
-      <span class="close" @click="closeSecondModal">&times;</span>
+      <div class="close-wrap"><span class="close" @click="closeChartModal">&times;</span></div>
       <line-chart id="chart" v-if="loaded"></line-chart>
     </div>
-
   </div>
 
   <div id="myLoginModal" class="modal">
-    <!-- Modal content -->
     <div class="modal-content">
-      <span class="close" @click="closeLoginModal">&times;</span>
+      <div class="close-wrap"><span class="close" @click="closeLoginModal">&times;</span></div>
       <login-form/>
     </div>
   </div>
 
+  <div id="mySignUpModal" class="modal">
+    <div class="modal-content">
+      <div class="close-wrap"><span class="close" @click="closeSignUpModal">&times;</span></div>
+      <signup-form/>
+    </div>
+  </div>
 </div>
 </template>
 
@@ -54,6 +55,7 @@ import btn from './components/btn'
 import socialIcons from './components/social-icons'
 import simpleFooter from './components/simple-footer'
 import loginForm from './components/login-form'
+import signupForm from './components/signup-form'
 
 export default {
   name: 'App',
@@ -66,13 +68,15 @@ export default {
     simpleFooter,
     lineChart,
     Form,
-    loginForm
+    loginForm,
+    signupForm
   },
   data(){
     return{
       loaded : false,
       chartData: {},
       dataOptions: {},
+      info: ''
     }
   },
   methods: {
@@ -83,6 +87,10 @@ export default {
     openLoginModal(){
       var login = document.getElementById("myLoginModal")
       login.style.display = "block"
+    },
+    openSignUpModal(){
+      var signup = document.getElementById('mySignUpModal')
+      signup.style.display = 'block'
     },
     closeLoginModal(){
       var login = document.getElementById("myLoginModal")
@@ -100,12 +108,16 @@ export default {
       if(this.loaded === false){
         this.loaded = true
       }
-      var modal2 = document.getElementById("myModal2");
+      var modal2 = document.getElementById("myChartModal2");
       modal2.style.display = "block";
     },
-    closeSecondModal(){
-      var modal2 = document.getElementById("myModal2");
+    closeChartModal(){
+      var modal2 = document.getElementById("myChartModal2");
       modal2.style.display = "none";
+    },
+    closeSignUpModal(){
+      var signup = document.getElementById('mySignUpModal')
+      signup.style.display = 'none'
     }
   }
 }
@@ -151,9 +163,11 @@ export default {
 }
 
 /* The Close Button */
+.close-wrap{
+  text-align: right;
+}
 .close {
   color: #aaaaaa;
-  float: right;
   font-size: 30px;
   font-weight: bold;
   width: min-content;
