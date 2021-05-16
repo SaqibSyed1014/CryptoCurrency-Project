@@ -38,6 +38,7 @@
           <input v-model="userSecretKey" class="form-control w-75" type="text" id="secretKeySignUp">
         </div>
       </div>
+      <h4 class="errorMsg text-center" v-if="errorMsg">Please fill the entire form!</h4>
       <div class="text-center my-4">
         <button type="button" @click="submitSignUpForm" class="btn btn-dark">Sign Up</button>
       </div>
@@ -55,21 +56,29 @@ name: "signupForm",
       email: '',
       password: '',
       userApiKey: '',
-      userSecretKey: ''
+      userSecretKey: '',
+      errorMsg: false
    }
   },
   methods: {
     submitSignUpForm(){
-      console.log('dispatching signup action')
-      this.$store.dispatch('signup',{
-        firstName: this.firstName,
-        lastName: this.lastName,
-        email: this.email,
-        password: this.password,
-        userApiKey: this.userApiKey,
-        userSecretKey: this.userSecretKey
-      })
-      console.log('dispatched signup action')
+      if(this.firstName == '' || this.lastName == '' || this.email == '' || this.password == '' || this.userApiKey == '' || this.userSecretKey == ''){
+        this.errorMsg = true
+        return false
+      }
+      else {
+        console.log('dispatching signup action')
+        this.$store.dispatch('signup',{
+          firstName: this.firstName,
+          lastName: this.lastName,
+          email: this.email,
+          password: this.password,
+          userApiKey: this.userApiKey,
+          userSecretKey: this.userSecretKey
+        })
+        console.log('dispatched signup action')
+        this.$emit('closesignupmodal', 1)
+      }
     }
   }
 }

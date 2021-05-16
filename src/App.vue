@@ -32,14 +32,14 @@
   <div id="myLoginModal" class="modal">
     <div class="modal-content">
       <div class="close-wrap"><span class="close" @click="closeLoginModal">&times;</span></div>
-      <login-form/>
+      <login-form @closeloginmodal="closeLoginModal"/>
     </div>
   </div>
 
   <div id="mySignUpModal" class="modal">
     <div class="modal-content">
       <div class="close-wrap"><span class="close" @click="closeSignUpModal">&times;</span></div>
-      <signup-form/>
+      <signup-form @closesignupmodal="closeSignUpModal"/>
     </div>
   </div>
 </div>
@@ -76,7 +76,7 @@ export default {
       loaded : false,
       chartData: {},
       dataOptions: {},
-      info: ''
+      logOutResponse: ''
     }
   },
   methods: {
@@ -93,6 +93,7 @@ export default {
       signup.style.display = 'block'
     },
     closeLoginModal(){
+      console.log('inside closeLoginModal')
       var login = document.getElementById("myLoginModal")
       login.style.display = "none"
     },
@@ -104,7 +105,6 @@ export default {
       var modal = document.getElementById("myModal");
       modal.style.display = "none";
       this.loaded = !this.loaded
-      console.log('loaded is now: ', this.loaded)
       if(this.loaded === false){
         this.loaded = true
       }
@@ -178,5 +178,11 @@ export default {
   color: #000;
   text-decoration: none;
   cursor: pointer;
+}
+</style>
+<style>
+.errorMsg{
+  color: red;
+  font-weight: bold;
 }
 </style>
