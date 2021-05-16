@@ -13,7 +13,7 @@
         <input class="form-control" type="date" value="2020-05-15" id="EndingDate">
       </div>
     </div>
-    <div class="text-center ">
+    <div class="text-center">
       <button type="button" @click="submitForm" class="btn btn-dark">Submit</button>
     </div>
   </form>
